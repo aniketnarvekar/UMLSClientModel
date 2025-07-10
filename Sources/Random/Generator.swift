@@ -345,3 +345,26 @@ extension UMLSSemanticValue: RandomGenerator {
 extension UMLSSemanticType: RandomGenerator {}
 
 extension UMLSSemanticTypeRelationLabel: RandomGenerator {}
+
+extension UMLSSemanticTypeFlag: RandomGenerator {}
+
+extension UMLSTermType: RandomGenerator {}
+
+extension UMLSRelationLabel: RandomGenerator {}
+
+extension UMLSAdditionalRelationLabel: RandomGenerator {}
+
+// FIXME: Change U type to create a logic.
+extension String {
+
+  public static var randomConceptString: String {
+    "C\(Int.random(in: 1_000_000...9_999_999))"
+  }
+
+  public static var randomTUI: String {
+    "T\(Int.random(in: 100..<1000))"
+  }
+
+}
+
+extension UMLSSourceVocabulary: RandomGenerator {}
