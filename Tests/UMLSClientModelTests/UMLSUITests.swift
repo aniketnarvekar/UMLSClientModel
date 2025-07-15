@@ -1,5 +1,6 @@
 //  UMLSUITests.swift
 
+import Foundation
 import XCTest
 
 @testable import UMLSClientModel
@@ -12,7 +13,7 @@ extension String {
 
 }
 
-class UMLSUITestCase<T: UMLSUIType>: XCTestCase {
+class UMLSUITestCase<T: UMLSUIType & Decodable>: XCTestCase {
 
   var decoder: JSONDecoder!
 
@@ -31,8 +32,6 @@ class UMLSUITestCase<T: UMLSUIType>: XCTestCase {
       switch error {
       case .invalidFormat:
         XCTAssert(true)
-      default:
-        XCTFail("Unexpected UMLSUIStringError: \(error)")
       }
     } catch {
       XCTFail("Unexpected error: \(error)")

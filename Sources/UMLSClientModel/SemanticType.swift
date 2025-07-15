@@ -243,12 +243,6 @@ public enum UMLSSemanticTypeFlag: String, Decodable, CaseIterable, Sendable {
   case dni = "DNI"
 }
 
-// MARK: - Identifier
-
-public struct UMLSTUI: UMLSUIType {
-  public static let pattern: String = "^T\\d{3}$"
-}
-
 // MARK: - JSON Decoder
 
 /// A semantic type forward relation info

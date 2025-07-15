@@ -18,7 +18,11 @@ ABSOLUTE_PATHS := $(shell IFS=',' read -ra PATHS <<< "$$SWIFT_SOURCE_FILES"; \
 # In case of a issue perform target
 # build, test from Makefile first.
 
-report:
+test:
+	@echo "=> Testing for code coverage."
+	@swift test --quiet --enable-code-coverage --enable-experimental-prebuilts
+
+report: test
 	@echo "=> Generating code coverage report."
 	@xcrun --run \
 	llvm-cov report \
