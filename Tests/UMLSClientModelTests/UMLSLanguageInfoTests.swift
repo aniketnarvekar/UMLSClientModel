@@ -1,7 +1,8 @@
 import Foundation
 import Random
-import UMLSClientModel
 import XCTest
+
+@testable import UMLSClientModel
 
 // MARK: - JSONDecodeLanguageInfoTests
 

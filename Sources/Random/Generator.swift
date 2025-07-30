@@ -4,7 +4,11 @@ import Foundation
 import UMLSClientModel
 import WebURL
 
+/// A protocol to generate random objects.
 public protocol RandomGenerator {
+  /// A random object generator.
+  /// - Parameter generator: A generator object
+  /// - Returns: new object of type `Self`.
   static func random<G: RandomNumberGenerator>(using generator: inout G) -> Self
 }
 
@@ -345,3 +349,121 @@ extension UMLSSemanticValue: RandomGenerator {
 extension UMLSSemanticType: RandomGenerator {}
 
 extension UMLSSemanticTypeRelationLabel: RandomGenerator {}
+
+extension UMLSSemanticTypeFlag: RandomGenerator {}
+
+extension UMLSTermType: RandomGenerator {}
+
+extension UMLSRelationLabel: RandomGenerator {}
+
+extension UMLSAdditionalRelationLabel: RandomGenerator {}
+
+// FIXME: Change U type to create a logic.
+extension String {
+
+  public static var randomConceptString: String {
+    "C\(Int.random(in: 1_000_000...9_999_999))"
+  }
+
+  public static var randomTUI: String {
+    "T\(Int.random(in: 100..<1000))"
+  }
+
+}
+
+extension UMLSSourceVocabulary: RandomGenerator {}
+
+// MARK: - Search Element
+
+extension UMLSSearchElement: RandomGenerator {
+  public static func random<G>(using generator: inout G) -> UMLSClientModel.UMLSSearchElement
+  where G: RandomNumberGenerator {
+    .init(
+      id: .randomAlphaNumericString(of: 10), source: .randomAlphaNumericString(of: 10),
+      name: .randomAlphaNumericString(of: 10))
+  }
+}
+
+// MARK: - Search Page
+
+extension UMLSSearchPage: RandomGenerator {
+  public static func random<G>(using generator: inout G) -> UMLSClientModel.UMLSSearchPage
+  where G: RandomNumberGenerator {
+    var size = UInt8.random(in: 1...UInt8.max, using: &generator)
+    var totalSize = UInt8.random(in: 1...UInt8.max, using: &generator)
+
+    // Verify if totalSize > size else swap.
+    if size > totalSize {
+      let temp = totalSize
+      totalSize = size
+      size = temp
+    }
+
+    // Calculate number of pages.
+    var count = totalSize / size
+    count += totalSize % size > 0 ? 1 : 0
+
+    // Randomly select one page.
+    let number = UInt8.random(in: 1...count, using: &generator)
+
+    return .init(
+      size: .init(size), number: .init(number), totalSize: .init(totalSize),
+      elements: (0..<size).map { _ in .random() })
+  }
+}
+
+// MARK: - Unique Identifier Type
+
+// MARK: Concept
+
+extension UMLSConcept: RandomGenerator {
+
+  public static func random<G>(using generator: inout G) -> UMLSConcept
+  where G: RandomNumberGenerator {
+    .init(string: "C\(Int.random(in: 1_000_000...9_999_999))")
+  }
+
+}
+
+// MARK: Atom
+
+extension UMLSAtom: RandomGenerator {
+
+  public static func random<G>(using generator: inout G) -> UMLSAtom
+  where G: RandomNumberGenerator {
+    .init(string: "A\(Int.random(in: 1_000_000...99_999_999))")
+  }
+
+}
+
+// MARK: Relation
+
+extension UMLSRelation: RandomGenerator {
+
+  public static func random<G>(using generator: inout G) -> UMLSRelation
+  where G: RandomNumberGenerator {
+    .init(string: "R\(Int.random(in: 100_000_000...999_999_999))")
+  }
+
+}
+
+// MARK: TUI
+
+extension UMLSTUI: RandomGenerator {
+
+  public static func random<G>(using generator: inout G) -> UMLSTUI where G: RandomNumberGenerator {
+    .init(string: "T\(Int.random(in: 100...999))")
+  }
+
+}
+
+// MARK: - Unique Identifier
+
+extension UMLSUI: RandomGenerator where U: RandomGenerator {
+
+  public static func random<G>(using generator: inout G) -> UMLSUI<U>
+  where G: RandomNumberGenerator {
+    return try! .init(object: .random(using: &generator))
+  }
+
+}

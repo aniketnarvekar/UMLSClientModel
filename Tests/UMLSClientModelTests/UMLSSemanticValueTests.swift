@@ -1,5 +1,6 @@
 // UMLSSemanticValueTests.swift
 
+import Random
 import XCTest
 
 @testable import UMLSClientModel
@@ -62,6 +63,16 @@ final class UMLSSemanticValueTests: XCTestCase {
     let strings = UMLSSemanticType.allCases.map { $0.rawValue.uppercased() }
     for string in strings {
       try dataCorrupted(value: string)
+    }
+  }
+
+  func testEncodeObject() throws {
+    let times = Int.random(in: 10...20)
+    for _ in (0...times) {
+      let object = UMLSSemanticValue.random()
+      let data = try encoder.encode(object)
+      let result = try decoder.decode(UMLSSemanticValue.self, from: data)
+      XCTAssertEqual(result, object)
     }
   }
 
