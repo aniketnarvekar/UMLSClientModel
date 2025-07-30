@@ -780,4 +780,9 @@ final class EncodeUMLSCreatorContactTests: XCTestCase, EncoderTestsProtocol {
     }
   }
 
+  func testURL() throws {
+    let object = UMLSCreatorContact<UMLSPostalAddress>.randomInitializer(url: nil)
+    XCTAssertNoThrow(try self.toData(object))
+  }
+
 }

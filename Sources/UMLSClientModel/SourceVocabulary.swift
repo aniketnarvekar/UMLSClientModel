@@ -724,3 +724,5 @@ extension UMLSSourceVocabularyTypeObject: Encodable where Object: Encodable {
   }
 
 }
+
+extension UMLSSourceVocabularyTypeObject: Equatable where Object: Equatable {}

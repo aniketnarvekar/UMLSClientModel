@@ -268,10 +268,10 @@ where
       abbreviation: .randomAlphaNumericString(of: 10),
       expandedForm: .randomAlphaNumericString(of: 10),
       family: .randomAlphaNumericString(of: 10), language: .random(using: &generator),
-      restrictionLevel: .random(),
+      restrictionLevel: .random(using: &generator),
       acquisitionContact: .randomAlphaNumericString(of: 10),
       contentContact: .random(using: &generator), licenseContact: .random(using: &generator),
-      contextType: .random(), shortName: .randomAlphaNumericString(of: 10),
+      contextType: .random(using: &generator), shortName: .randomAlphaNumericString(of: 10),
       hierarchicalName: .randomAlphaNumericString(of: 10),
       preferredName: .randomAlphaNumericString(of: 10),
       synonymousNames: .randomAlphaNumericString(of: 10))
@@ -311,30 +311,6 @@ extension UMLSSourceVocabularyTypeObject: RandomGenerator where Object: RandomGe
 
 }
 
-extension UMLSSemanticValue: RawRepresentable {
-  public var rawValue: String {
-    switch self {
-    case .semanticType(let value):
-      return value.rawValue
-    case .relation(let value):
-      return value.rawValue
-    }
-  }
-
-  public init?(rawValue: String) {
-    if let semanticType = UMLSSemanticType(rawValue: rawValue) {
-      self = .semanticType(semanticType)
-    } else if let relation = UMLSSemanticTypeRelationLabel(rawValue: rawValue) {
-      self = .relation(relation)
-    } else {
-      return nil
-    }
-  }
-
-}
-
-extension UMLSSemanticValue: Equatable {}
-
 extension UMLSSemanticValue: RandomGenerator {
 
   public static func random<G: RandomNumberGenerator>(using generator: inout G) -> Self {
@@ -357,19 +333,6 @@ extension UMLSTermType: RandomGenerator {}
 extension UMLSRelationLabel: RandomGenerator {}
 
 extension UMLSAdditionalRelationLabel: RandomGenerator {}
-
-// FIXME: Change U type to create a logic.
-extension String {
-
-  public static var randomConceptString: String {
-    "C\(Int.random(in: 1_000_000...9_999_999))"
-  }
-
-  public static var randomTUI: String {
-    "T\(Int.random(in: 100..<1000))"
-  }
-
-}
 
 extension UMLSSourceVocabulary: RandomGenerator {}
 
@@ -408,7 +371,7 @@ extension UMLSSearchPage: RandomGenerator {
 
     return .init(
       size: .init(size), number: .init(number), totalSize: .init(totalSize),
-      elements: (0..<size).map { _ in .random() })
+      elements: (0..<size).map { _ in .random(using: &generator) })
   }
 }
 

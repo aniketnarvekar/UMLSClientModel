@@ -9,11 +9,11 @@ final class UMLSConceptRelationParametersBuilderTests: XCTestCase {
   var builder: UMLSConceptRelationParametersBuilder!
 
   override func setUp() {
-    builder = .init(concept: try! .init(string: .randomConceptString))
+    builder = .init(concept: try! .init(string: UMLSConcept.random().string))
   }
 
   func testWithDefault() throws {
-    let concept: UMLSUI<UMLSConcept> = try! .init(string: .randomConceptString)
+    let concept: UMLSUI<UMLSConcept> = try! .init(string: UMLSConcept.random().string)
     builder = UMLSConceptRelationParametersBuilder(concept: concept)
     let result = builder.build()
     XCTAssertEqual(result.concept, concept)

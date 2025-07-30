@@ -19,7 +19,7 @@ final class DecodeSemanticTypeInfoTests: XCTestCase, XCTDecodingErrorAssertion {
 
   func semanticTypeInfo(
     abbreviation: JSONValue<Any> = .present(String.randomAlphaNumericString(of: 10)),
-    ui: JSONValue<Any> = .present(String.randomTUI),
+    ui: JSONValue<Any> = .present(UMLSTUI.random().string),
     definition: JSONValue<Any> = .present(String.randomAlphaNumericString(of: 10)),
     usageNote: JSONValue<Any> = .present(
       [.none, "", .randomAlphaNumericString(of: 10)].randomElement()!),

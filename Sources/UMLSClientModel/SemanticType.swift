@@ -200,6 +200,28 @@ public enum UMLSSemanticValue: Sendable {
   /// A semantic type relation label.
   case relation(UMLSSemanticTypeRelationLabel)
 }
+extension UMLSSemanticValue: RawRepresentable {
+
+  public var rawValue: String {
+    switch self {
+    case .semanticType(let value):
+      return value.rawValue
+    case .relation(let value):
+      return value.rawValue
+    }
+  }
+
+  public init?(rawValue: String) {
+    if let semanticType = UMLSSemanticType(rawValue: rawValue) {
+      self = .semanticType(semanticType)
+    } else if let relation = UMLSSemanticTypeRelationLabel(rawValue: rawValue) {
+      self = .relation(relation)
+    } else {
+      return nil
+    }
+  }
+
+}
 
 extension UMLSSemanticValue: Decodable {
   public init(from decoder: any Decoder) throws {
@@ -217,6 +239,8 @@ extension UMLSSemanticValue: Decodable {
     }
   }
 }
+
+extension UMLSSemanticValue: Equatable {}
 
 extension UMLSSemanticValue: Encodable {
 
