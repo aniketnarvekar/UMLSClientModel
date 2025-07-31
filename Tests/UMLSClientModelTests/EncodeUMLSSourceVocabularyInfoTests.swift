@@ -13,7 +13,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
     let completionHandler:
       (String) ->
         UMLSSourceVocabularyInfo<
-          UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+          UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
           UMLSLicenseContact<UMLSPostalAddress>
         >
   }
@@ -21,20 +21,21 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
   struct SourceVocabularyInfoStringNilProperty {
     let completion:
       (String?) -> UMLSSourceVocabularyInfo<
-        UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+        UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
         UMLSLicenseContact<UMLSPostalAddress>
       >
     let assertion:
       (
         UMLSSourceVocabularyInfo<
-          UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+          UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
           UMLSLicenseContact<UMLSPostalAddress>
         >
       ) throws -> Void
   }
 
   typealias Object = UMLSSourceVocabularyInfo<
-    UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>, UMLSLicenseContact<UMLSPostalAddress>
+    UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
+    UMLSLicenseContact<UMLSPostalAddress>
   >
 
   var encoder: JSONEncoder!
@@ -54,7 +55,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
 
   func testValidObject() throws {
     let object = UMLSSourceVocabularyInfo<
-      UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+      UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
       UMLSLicenseContact<UMLSPostalAddress>
     >.randomInitializer()
     let data = try toData(object)
@@ -127,7 +128,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
   func testRestrictionLevel() throws {
     let restrictionLevel = UMLSSourceRestrictionLevel.random()
     let object = UMLSSourceVocabularyInfo<
-      UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+      UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
       UMLSLicenseContact<UMLSPostalAddress>
     >.randomInitializer(restrictionLevel: restrictionLevel)
     XCTAssertEqual(object.restrictionLevel, restrictionLevel)
@@ -136,7 +137,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
   func testLanguage() throws {
     let languageInfo = UMLSLanguageTypeObject<UMLSLanguageInfo>.random()
     let object = UMLSSourceVocabularyInfo<
-      UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+      UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
       UMLSLicenseContact<UMLSPostalAddress>
     >.randomInitializer(language: languageInfo)
     XCTAssertEqual(object.language, languageInfo)
@@ -146,7 +147,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
     let contentContact = UMLSContactInformationTypeObject<UMLSCreatorContact<UMLSPostalAddress>>
       .random()
     let object = UMLSSourceVocabularyInfo<
-      UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+      UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
       UMLSLicenseContact<UMLSPostalAddress>
     >.randomInitializer(contentContact: contentContact)
     XCTAssertEqual(object.contentContact, contentContact)
@@ -156,7 +157,7 @@ final class EncodeUMLSSourceVocabularyInfoTests: XCTestCase, JSONCodable {
     let contentContact = UMLSContactInformationTypeObject<UMLSLicenseContact<UMLSPostalAddress>>
       .random()
     let object = UMLSSourceVocabularyInfo<
-      UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>,
+      UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
       UMLSLicenseContact<UMLSPostalAddress>
     >.randomInitializer(licenseContact: contentContact)
     XCTAssertEqual(object.licenseContact, contentContact)

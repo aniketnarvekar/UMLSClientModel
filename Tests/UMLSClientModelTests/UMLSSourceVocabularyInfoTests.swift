@@ -11,7 +11,8 @@ import XCTest
 final class UMLSSourceVocabularyInfoTests: XCTestCase, XCTDecodingErrorAssertion {
 
   typealias Element = UMLSSourceVocabularyInfo<
-    UMLSLanguageInfo, UMLSCreatorContact<UMLSPostalAddress>, UMLSLicenseContact<UMLSPostalAddress>
+    UMLSLanguageTypeObject<UMLSLanguageInfo>, UMLSCreatorContact<UMLSPostalAddress>,
+    UMLSLicenseContact<UMLSPostalAddress>
   >
 
   var jsonDecoder: JSONDecoder!

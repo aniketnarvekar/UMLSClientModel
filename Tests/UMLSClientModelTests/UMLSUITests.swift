@@ -86,6 +86,13 @@ final class UMLSConceptUITests: UMLSUITestCase<UMLSConcept> {
     XCTAssertNoThrow(try toData(object))
   }
 
+  func testDecode() throws {
+    let object = UMLSUI<UMLSConcept>.random()
+    let data = try toData(object)
+    let result = try toObject(data)
+    XCTAssertEqual(object, result)
+  }
+
 }
 
 final class UMLSAtomUITests: UMLSUITestCase<UMLSAtom> {

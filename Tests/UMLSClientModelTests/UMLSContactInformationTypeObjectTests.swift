@@ -102,6 +102,18 @@ final class UMLSContactInformationTypeObjectTests: XCTestCase,
     assertNull(from: data, "classType")
   }
 
+  func testUnsupportedClassType() throws {
+    let data = jsonData(classType: .present(UMLSObject.language.rawValue))
+    do {
+      _ = try self.jsonDecoder.decode(Element.self, from: data)
+    } catch let error as DecodingError {
+      guard case DecodingError.dataCorrupted(let context) = error else {
+        throw error
+      }
+      context.assertContext(codingPath: "classType")
+    }
+  }
+
 }
 
 final class EncodeUMLSContactInformationTypeObjectTests: XCTestCase, JSONCodable {

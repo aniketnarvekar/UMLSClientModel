@@ -717,4 +717,9 @@ final class EncodeUMLSLicenseContactTests: XCTestCase, EncoderTestsProtocol {
     }
   }
 
+  func testURL() throws {
+    let object = UMLSLicenseContact<UMLSPostalAddress>.randomInitializer(url: nil)
+    XCTAssertNoThrow(try toData(object))
+  }
+
 }

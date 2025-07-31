@@ -552,14 +552,14 @@ public protocol UMLSSourceVocabularyInformation: Decodable {
 // MARK: Implementation
 
 public struct UMLSSourceVocabularyInfo<
-  Language: UMLSLanguage & Decodable & Sendable,
+  Language: UMLSLanguageType & Decodable & Sendable,
   CreatorContact: UMLSCreatorContactInformation & Decodable & Sendable,
   LicenseContact: UMLSLicenseContactInformation & Decodable & Sendable
 >: UMLSSourceVocabularyInformation, Decodable, Sendable {
   public var abbreviation: String
   public var expandedForm: String
   public var family: String
-  public var language: UMLSLanguageTypeObject<Language>
+  public var language: Language
   public var restrictionLevel: UMLSSourceRestrictionLevel
   public var acquisitionContact: String?
   public var contentContact: UMLSContactInformationTypeObject<CreatorContact>
@@ -588,7 +588,7 @@ public struct UMLSSourceVocabularyInfo<
 
   public init(
     abbreviation: String, expandedForm: String, family: String,
-    language: UMLSLanguageTypeObject<Language>, restrictionLevel: UMLSSourceRestrictionLevel,
+    language: Language, restrictionLevel: UMLSSourceRestrictionLevel,
     acquisitionContact: String? = nil,
     contentContact: UMLSContactInformationTypeObject<CreatorContact>,
     licenseContact: UMLSContactInformationTypeObject<LicenseContact>,
@@ -616,7 +616,7 @@ public struct UMLSSourceVocabularyInfo<
     self.abbreviation = try container.decodeNonNoneAndEmptyString(forKey: .abbreviation)
     self.expandedForm = try container.decodeNonNoneAndEmptyString(forKey: .expandedForm)
     self.family = try container.decodeNonNoneAndEmptyString(forKey: .family)
-    self.language = try container.decode(UMLSLanguageTypeObject<Language>.self, forKey: .language)
+    self.language = try container.decode(Language.self, forKey: .language)
     self.restrictionLevel = try container.decode(
       UMLSSourceRestrictionLevel.self, forKey: .restrictionLevel)
     self.acquisitionContact = try container.decodeTrimmedStringOrNil(forKey: .acquisitionContact)

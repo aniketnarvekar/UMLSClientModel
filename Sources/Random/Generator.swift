@@ -281,7 +281,7 @@ where
     abbreviation: String = .randomAlphaNumericString(of: 10),
     expandedForm: String = .randomAlphaNumericString(of: 10),
     family: String = .randomAlphaNumericString(of: 10),
-    language: UMLSLanguageTypeObject<Language> = .random(),
+    language: Language = .random(),
     restrictionLevel: UMLSSourceRestrictionLevel = .random(),
     acquisitionContact: String? = .randomAlphaNumericString(of: 10),
     contentContact: UMLSContactInformationTypeObject<CreatorContact> = .random(),

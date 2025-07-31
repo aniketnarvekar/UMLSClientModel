@@ -10,6 +10,7 @@ extension DecodingError.Context {
     codingPath name: String,
     debugDescription: String? = nil
   ) {
+    XCTAssertFalse(codingPath.isEmpty)
     XCTAssertEqual(codingPath[0].stringValue, name)
     if let description = debugDescription {
       XCTAssertEqual(description, self.debugDescription)

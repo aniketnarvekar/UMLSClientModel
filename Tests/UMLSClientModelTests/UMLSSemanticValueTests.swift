@@ -76,4 +76,30 @@ final class UMLSSemanticValueTests: XCTestCase {
     }
   }
 
+  func testInitializerSemanticType() throws {
+    for semanticType in UMLSSemanticType.allCases {
+      let object = UMLSSemanticValue(rawValue: semanticType.rawValue)!
+      guard case UMLSSemanticValue.semanticType(let result) = object else {
+        XCTFail()
+        return
+      }
+      XCTAssertEqual(semanticType, result)
+    }
+  }
+
+  func testInitializeSemanticRelation() throws {
+    for label in UMLSSemanticTypeRelationLabel.allCases {
+      let object = UMLSSemanticValue(rawValue: label.rawValue)!
+      guard case UMLSSemanticValue.relation(let result) = object else {
+        XCTFail()
+        return
+      }
+      XCTAssertEqual(label, result)
+    }
+  }
+
+  func testInitlaizeWithInvalidValue() throws {
+    XCTAssertNil(UMLSSemanticValue(rawValue: String.randomAlphaNumericString(of: 10)))
+  }
+
 }

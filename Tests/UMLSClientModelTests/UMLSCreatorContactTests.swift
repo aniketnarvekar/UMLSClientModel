@@ -24,6 +24,23 @@ extension JSONCodable {
     try encoder.encode(object)
   }
 
+  func objectDataObject(_ object: Object) throws -> Object {
+    try toObject(try toData(object))
+  }
+
+}
+
+extension JSONCodable where Object: RandomGenerator {
+
+
+  func randomObjectToData() throws -> Data {
+    try toData(.random())
+  }
+
+  func randomObjectDataObject() throws -> Object {
+    try objectDataObject(.random())
+  }
+
 }
 
 protocol EncoderTestsProtocol: JSONCodable {
